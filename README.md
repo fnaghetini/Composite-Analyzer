@@ -23,7 +23,7 @@ A Streamlit application for composite drillhole data using Datamine StudioRM.
 1. Clone this repository:
 ```bash
 git clone Composite-Analyzer
-cd Composite-Drillholes-Dashboard
+cd Composite-Analyzer
 ```
 
 2. Install dependencies:
