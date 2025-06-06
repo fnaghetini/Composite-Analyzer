@@ -10,13 +10,8 @@ import matplotlib.pyplot as plt
 
 
 def auto_connect():
-    """Initialize connection with Datamine StudioRM or return None in demo mode."""
+    """Initialize connection with Datamine StudioRM."""
     try:
-        # Check if we're in demo mode (e.g., when deployed)
-        if os.environ.get('DEMO_MODE', 'false').lower() == 'true':
-            st.warning("Running in demo mode - Datamine StudioRM features are limited")
-            return None
-            
         pythoncom.CoInitialize()
         return client.Dispatch("Datamine.StudioRM.Application")
     except Exception as e:
@@ -224,7 +219,7 @@ def create_statistics_comparison(raw_data: pd.DataFrame, composite_data: pd.Data
     diff_stats = {}
     for key in raw_stats:
         if raw_stats[key] != 0:  # Avoid division by zero
-            diff_pct = round(((comp_stats[key] - raw_stats[key]) / raw_stats[key]) * 100, 2)
+            diff_pct = ((comp_stats[key] - raw_stats[key]) / raw_stats[key]) * 100
         else:
             diff_pct = 0
         diff_stats[key] = diff_pct
@@ -234,6 +229,18 @@ def create_statistics_comparison(raw_data: pd.DataFrame, composite_data: pd.Data
         'Raw': raw_stats,
         'Composite': comp_stats,
         'Difference (%)': diff_stats
-    }).round(4)
+    }).round(2)
     
-    return comparison_df
+    # Format numbers to remove trailing zeros after rounding
+    for col in comparison_df.columns:
+        comparison_df[col] = comparison_df[col].apply(
+            lambda x: f"{x:.2f}".rstrip('0').rstrip('.') if isinstance(x, float) else x
+        )
+    
+    # Apply conditional styling
+    styled_df = comparison_df.style.map(
+        lambda x: 'color: red' if float(x) < 0 else ('color: green' if float(x) > 0 else 'color: black'),
+        subset=['Difference (%)']
+    )
+    
+    return styled_df

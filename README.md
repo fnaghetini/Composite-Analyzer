@@ -1,6 +1,6 @@
-# Composite Analyzer
+# 📊 Composite Analyzer
 
-A Streamlit application for composite drillhole data using Datamine StudioRM.
+A Streamlit application for composite and validate drillhole data using Datamine StudioRM.
 
 ## Features
 
@@ -8,7 +8,6 @@ A Streamlit application for composite drillhole data using Datamine StudioRM.
 - Create composites with custom size
 - Analyze length and grade distributions
 - Compare statistics between raw and composite samples
-- Interactive visualizations
 
 ## Requirements
 
@@ -16,7 +15,7 @@ A Streamlit application for composite drillhole data using Datamine StudioRM.
 - Streamlit
 - Pandas
 - Matplotlib
-- Datamine StudioRM (for full functionality)
+- Datamine StudioRM active project
 
 ## Installation
 
@@ -33,23 +32,9 @@ pip install -r requirements.txt
 
 ## Usage
 
-1. Local Development:
+1. Open Studio RM project.
+
+2. Run streamlit app in terminal
 ```bash
 streamlit run app.py
 ```
-
-2. Demo Mode (without Datamine StudioRM):
-```bash
-set DEMO_MODE=true
-streamlit run app.py
-```
-
-## Deployment
-
-This application can be deployed to Streamlit Cloud:
-
-1. Push your code to GitHub
-2. Visit [share.streamlit.io](https://share.streamlit.io)
-3. Connect your GitHub repository
-4. Set environment variable `DEMO_MODE=true`
-5. Deploy!
